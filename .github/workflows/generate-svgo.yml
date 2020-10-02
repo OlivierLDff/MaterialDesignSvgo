@@ -1,0 +1,40 @@
+name: Generate Svgo
+
+on:
+  schedule:
+    # Every day at 1am
+    - cron: '0 1 * * *'
+
+  push:
+    # Also trigger CI when commit pushed to ci branch to dev the workflow script
+    branches:
+      - ci
+
+jobs:
+  generate-svgo:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: "Install svgo"
+        run: npm install -g svgo
+
+      - uses: actions/checkout@v2
+        name: "Download MaterialDesignIcons"
+        with:
+          name: Templarian/MaterialDesign
+          path: "../MaterialDesign"
+
+      - name: "Compress svgs"
+        run: |
+          rm -rf svgo
+          mkdir svgo
+          cd ../MaterialDesign/svg
+          for f in *.svg ; do svgo -i "$f" -o $GITHUB_WORKSPACE/svgo/"$f".svg ; done
+
+      - name: "Deploy"
+        run: |
+        git add .
+        git -c user.name='ci' -c user.email='ci' commit -m init
+        git push -f -q https://git:${{ secrets.github_token }}@github.com/${{ github.repository }} HEAD:master
