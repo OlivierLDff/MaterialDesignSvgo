@@ -32,7 +32,7 @@ jobs:
           rm -rf svgo
           mkdir svgo
           cd mdi/svg
-          for f in *.svg ; do svgo -i "$f" -o $GITHUB_WORKSPACE/svgo/"$f".svg ; done
+          for f in *.svg ; do svgo -q -i "$f" -o $GITHUB_WORKSPACE/svgo/"$f".svg ; done
 
       - name: "Deploy"
         run: |
