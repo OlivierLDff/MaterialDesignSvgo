@@ -29,16 +29,16 @@ jobs:
 
       - name: "Compress svgs"
         run: |
-          rm -rf svgo
-          mkdir svgo
+          rm -rf svg
+          mkdir svg
           cd mdi/svg
-          for f in *.svg ; do svgo -q -i "$f" -o $GITHUB_WORKSPACE/svgo/"$f".svg ; done
+          for f in *.svg ; do svgo -q -i "$f" -o $GITHUB_WORKSPACE/svg/"$f".svg ; done
 
       - name: "Deploy"
         run: |
           cd mdi
           MDI_SHA_1=$(git rev-parse HEAD)
           cd ..
-          git add svgo/*
+          git add svg/*
           git -c user.name='ci' -c user.email='ci' commit -m "Update to $MDI_SHA_1"
           git push -f -q https://git:${{ secrets.github_token }}@github.com/${{ github.repository }} HEAD:master
