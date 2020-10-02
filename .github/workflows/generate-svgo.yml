@@ -32,7 +32,7 @@ jobs:
           rm -rf svg
           mkdir svg
           cd mdi/svg
-          for f in *.svg ; do svgo -q -i "$f" -o $GITHUB_WORKSPACE/svg/"$f".svg ; done
+          for f in *.svg ; do svgo --disable "convertPathData" -q -i "$f" -o $GITHUB_WORKSPACE/svg/"$f" ; done
 
       - name: "Deploy"
         run: |
