@@ -18,7 +18,7 @@ jobs:
       - uses: actions/checkout@v2
 
       - name: "Install svgo"
-        run: npm install -g svgo
+        run: sudo npm install -g svgo
 
       - uses: actions/checkout@v2
         name: "Download MaterialDesignIcons"
