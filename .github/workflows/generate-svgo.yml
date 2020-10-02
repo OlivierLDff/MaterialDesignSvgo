@@ -30,13 +30,14 @@ jobs:
         run: |
           rm -rf svgo
           mkdir svgo
-          cd mdi
-          MDI_SHA_1=$(git rev-parse HEAD)
-          cd svg
+          cd mdi/svg
           svgo -i alpha-k.svg -o $GITHUB_WORKSPACE/svgo/alpha-k.svg
 
       - name: "Deploy"
         run: |
+          cd mdi
+          MDI_SHA_1=$(git rev-parse HEAD)
+          cd ..
           git add svgo/*
           git -c user.name='ci' -c user.email='ci' commit -m "Update to $MDI_SHA_1"
           git push -f -q https://git:${{ secrets.github_token }}@github.com/${{ github.repository }} HEAD:master
