@@ -16,6 +16,7 @@ jobs:
 
     steps:
       - uses: actions/checkout@v2
+        name: "Clone Master"
 
       - name: "Install svgo"
         run: sudo npm install -g svgo
@@ -31,7 +32,7 @@ jobs:
           rm -rf svgo
           mkdir svgo
           cd mdi/svg
-          svgo -i alpha-k.svg -o $GITHUB_WORKSPACE/svgo/alpha-k.svg
+          for f in *.svg ; do svgo -i "$f" -o $GITHUB_WORKSPACE/svgo/"$f".svg ; done
 
       - name: "Deploy"
         run: |
