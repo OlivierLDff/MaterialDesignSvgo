@@ -24,17 +24,20 @@ jobs:
         name: "Download MaterialDesignIcons"
         with:
           repository: Templarian/MaterialDesign
-          path: "../MaterialDesign"
+          path: mdi
 
       - name: "Compress svgs"
         run: |
           rm -rf svgo
           mkdir svgo
-          cd ../MaterialDesign/svg
+          pwd
+          cd mdi/svg
+          pwd
+          echo $GITHUB_WORKSPACE
           for f in *.svg ; do svgo -i "$f" -o $GITHUB_WORKSPACE/svgo/"$f".svg ; done
 
       - name: "Deploy"
         run: |
-          git add .
+          git add svgo/*
           git -c user.name='ci' -c user.email='ci' commit -m init
           git push -f -q https://git:${{ secrets.github_token }}@github.com/${{ github.repository }} HEAD:master
