@@ -42,3 +42,5 @@ jobs:
           git add svg/*
           git -c user.name='ci' -c user.email='ci' commit -m "Update to $MDI_SHA_1"
           git push -f -q https://git:${{ secrets.github_token }}@github.com/${{ github.repository }} HEAD:master
+        # Make sure that the job doesn't fail if no changed hapenned
+        continue-on-error: true
