@@ -2,8 +2,8 @@ name: Generate Svgo
 
 on:
   schedule:
-    # Every day at 1am
-    - cron: '0 1 * * *'
+    # Runs at 00:00 UTC on Sun
+    - cron: '0 0 * * 0'
 
   push:
     # Also trigger CI when commit pushed to ci branch to dev the workflow script
