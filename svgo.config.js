@@ -8,7 +8,7 @@ module.exports = {
     'cleanupAttrs',
     'inlineStyles',
     'minifyStyles',
-    'cleanupIDs',
+    'cleanupIds',
     'removeUselessDefs',
     'cleanupNumericValues',
     'convertColors',
